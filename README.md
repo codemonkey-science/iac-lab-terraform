@@ -39,17 +39,19 @@ For our lab environment, this creates clones of Ubuntu Cloud Images on ProxMoxan
 
 There is a VLAN 50 where these machines live, and DNS entries as follows:
 
-|                       Hostname |     IP Address |
-| -----------------------------: | -------------: |
-| *pve1.east.codemonkey.science* |   192.168.60.9 |
-|   auth.east.codemonkey.science | 192.168.60.110 |
-|    cti.east.codemonkey.science | 192.168.60.111 |
-|   misp.east.codemonkey.science | 192.168.60.112 |
-|    sim.east.codemonkey.science | 192.168.60.113 |
-|   siem.east.codemonkey.science | 192.168.60.114 |
-| status.east.codemonkey.science | 192.168.60.115 |
+|                                 Hostname |    IP Address |
+| ---------------------------------------: | ------------: |
+|           *pve1.east.codemonkey.science* |  192.168.60.9 |
+| *github-runner1.east.codemonkey.science* | 192.168.60.10 |
+|    *cloudflared.east.codemonkey.science* | 192.168.60.11 |
+|             auth.east.codemonkey.science | 192.168.60.12 |
+|              cti.east.codemonkey.science | 192.168.60.13 |
+|             misp.east.codemonkey.science | 192.168.60.14 |
+|              sim.east.codemonkey.science | 192.168.60.15 |
+|             siem.east.codemonkey.science | 192.168.60.16 |
+|           status.east.codemonkey.science | 192.168.60.17 |
 
-The "pmvm" entries are ProxMox virtualization servers.
+Servers in *italics* will be managed outside of the Terraform process.
 
 ## Installing Terraform
 
