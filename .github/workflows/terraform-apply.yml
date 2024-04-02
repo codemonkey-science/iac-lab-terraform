@@ -1,0 +1,102 @@
+name: Terraform Create Lab
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: "Limit to specific resources (comma-separated):"
+        required: false
+        default: ""
+
+
+jobs:
+  terraform:
+    name: Terraform apply from self-hosted runner
+    runs-on: self-hosted
+    container: ubuntu:22.04
+    environment: production
+    env:
+      TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_CLOUD_TOKEN }}
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up APT mirror
+        run: |
+          echo "deb http://mirror1.south.netcave.io/ubuntu/ jammy main restricted universe multiverse" > /etc/apt/sources.list
+          echo "deb http://mirror1.south.netcave.io/ubuntu/ jammy-updates main restricted universe multiverse" >> /etc/apt/sources.list
+          echo "deb http://mirror1.south.netcave.io/ubuntu/ jammy-security main restricted universe multiverse" >> /etc/apt/sources.list
+          echo "deb http://mirror1.south.netcave.io/ubuntu/ jammy-backports main restricted universe multiverse" >> /etc/apt/sources.list
+
+      - name: Install prerequisites
+        run: |
+          apt-get update
+          apt-get install -y unzip curl
+          curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+          apt-get install -y nodejs
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3.0.0
+      #  with:
+      #    cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Disable IPv6
+        run: |
+          echo 'precedence ::ffff:0:0/96 100' | tee -a /etc/gai.conf
+          
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./src
+
+      # Checks that all Terraform configuration files adhere to a canonical format
+      - name: Terraform Format
+        run: terraform fmt -check
+        working-directory: ./src
+
+      # Generates an execution plan for Terraform
+      - name: Terraform Plan
+        run: |
+          IFS=',' read -ra ADDR <<< "${{ github.event.inputs.targets }}"
+          TARGETS=""
+          for i in "${ADDR[@]}"; do
+            TARGETS+=" -target=$i"
+          done
+          terraform plan -input=false $TARGETS \
+          -var="ssh_private_key=${{ secrets.CONAN_THE_DEPLOYER }}" \
+          -var="api_user=${{ secrets.TF_API_USER }}" \
+          -var="api_password=${{ secrets.TF_API_PASSWORD }}" \
+          -var="api_token_id=${{ secrets.TF_API_TOKEN_ID }}" \
+          -var="api_token_secret=${{ secrets.TF_API_TOKEN_SECRET }}"
+        working-directory: ./src
+
+        # On push to "main", build or change infrastructure according to Terraform configuration files
+        # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+      - name: Terraform Apply
+        run: |
+          IFS=',' read -ra ADDR <<< "${{ github.event.inputs.targets }}"
+          TARGETS=""
+          for i in "${ADDR[@]}"; do
+            TARGETS+=" -target=$i"
+          done
+          terraform apply -auto-approve -input=false $TARGETS \
+          -var="ssh_private_key=${{ secrets.CONAN_THE_DEPLOYER }}" \
+          -var="api_user=${{ secrets.TF_API_USER }}" \
+          -var="api_password=${{ secrets.TF_API_PASSWORD }}" \
+          -var="api_token_id=${{ secrets.TF_API_TOKEN_ID }}" \
+          -var="api_token_secret=${{ secrets.TF_API_TOKEN_SECRET }}"
+        working-directory: ./src
