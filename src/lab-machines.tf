@@ -21,7 +21,7 @@ resource "proxmox_vm_qemu" "auth" {
   # boot         = "order=scsi0"
   bootdisk     = "scsi0"
   name         = "auth.east.codemonkey.science"
-  ipconfig0    = "ip=192.168.60.110/24,gw=192.168.60.1"
+  ipconfig0    = "ip=192.168.60.12/24,gw=192.168.60.1"
   tags         = "cloud-image, ubuntu, ubuntu-22.04, ubuntu-jammy, auth, keycloak, codemonkey.science, lab"
   clone        = "ubuntu-cloud-jammy"
   clone_wait   = 15
@@ -66,7 +66,7 @@ resource "proxmox_vm_qemu" "cti" {
   boot         = "order=scsi0"
   bootdisk     = "scsi0"
   name         = "cti.east.codemonkey.science"
-  ipconfig0    = "ip=192.168.60.111/24,gw=192.168.60.1"
+  ipconfig0    = "ip=192.168.60.13/24,gw=192.168.60.1"
   tags         = "cloud-image, ubuntu, ubuntu-22.04, ubuntu-jammy, cti, codemonkey.science, lab"
   clone        = "ubuntu-cloud-jammy"
   agent        = 1
@@ -108,7 +108,7 @@ resource "proxmox_vm_qemu" "misp" {
   boot         = "order=scsi0"
   bootdisk     = "scsi0"
   name         = "misp.east.codemonkey.science"
-  ipconfig0    = "ip=192.168.60.112/24,gw=192.168.60.1"
+  ipconfig0    = "ip=192.168.60.14/24,gw=192.168.60.1"
   tags         = "cloud-image, ubuntu, ubuntu-22.04, ubuntu-jammy, misp, codemonkey.science, lab"
   clone        = "ubuntu-cloud-jammy"
   agent        = 1
@@ -149,7 +149,7 @@ resource "proxmox_vm_qemu" "sim" {
   boot         = "order=scsi0"
   bootdisk     = "scsi0"
   name         = "sim.east.codemonkey.science"
-  ipconfig0    = "ip=192.168.60.113/24,gw=192.168.60.1"
+  ipconfig0    = "ip=192.168.60.15/24,gw=192.168.60.1"
   tags         = "cloud-image, ubuntu, ubuntu-22.04, ubuntu-jammy, sim, codemonkey.science, lab"
   clone        = "ubuntu-cloud-jammy"
   agent        = 1
@@ -191,7 +191,7 @@ resource "proxmox_vm_qemu" "siem" {
   boot         = "order=scsi0"
   bootdisk     = "scsi0"
   name         = "siem.east.codemonkey.science"
-  ipconfig0    = "ip=192.168.60.114/24,gw=192.168.60.1"
+  ipconfig0    = "ip=192.168.60.16/24,gw=192.168.60.1"
   tags         = "cloud-image, ubuntu, ubuntu-22.04, ubuntu-jammy, siem, graylog, codemonkey.science, lab"
   clone        = "ubuntu-cloud-jammy"
   agent        = 1
@@ -246,7 +246,7 @@ resource "proxmox_vm_qemu" "status" {
   boot         = "order=scsi0"
   bootdisk     = "scsi0"
   name         = "status.east.codemonkey.science"
-  ipconfig0    = "ip=192.168.60.115/24,gw=192.168.60.1"
+  ipconfig0    = "ip=192.168.60.17/24,gw=192.168.60.1"
   tags         = "cloud-image, ubuntu, ubuntu-22.04, ubuntu-jammy, status, uptime-kuma, codemonkey.science, lab"
   clone        = "ubuntu-cloud-jammy"
   agent        = 1
