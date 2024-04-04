@@ -41,7 +41,8 @@ There is a VLAN 50 where these machines live, and DNS entries as follows:
 
 |                                 Hostname |    IP Address |
 | ---------------------------------------: | ------------: |
-|           *pve1.east.codemonkey.science* |  192.168.60.9 |
+|           *pve1.east.codemonkey.science* |  192.168.60.6 |
+|           *pve2.east.codemonkey.science* |  192.168.60.7 |
 | *github-runner1.east.codemonkey.science* | 192.168.60.10 |
 |    *cloudflared.east.codemonkey.science* | 192.168.60.11 |
 |             auth.east.codemonkey.science | 192.168.60.12 |
