@@ -5,6 +5,12 @@ locals {
     private_key = var.ssh_private_key
     host        = "pve1.east.codemonkey.science"
   }
+  connection_pve2 = {
+    type        = "ssh"
+    user        = "root"
+    private_key = var.ssh_private_key
+    host        = "pve2.east.codemonkey.science"
+  }
 }
 
 ##########

@@ -1,5 +1,5 @@
 variable "api_url" {
-  default = "https://pve1.east.codemonkey.science:8006/api2/json"
+  default = "https://proxmox.east.codemonkey.science:8006/api2/json"
 }
 
 variable "api_user" {
