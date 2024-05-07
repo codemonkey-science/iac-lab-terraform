@@ -26,16 +26,18 @@ terraform destroy
 
 For our lab environment, this creates clones of Ubuntu Cloud Images on ProxMoxand configures the needed hardware/resources for those VMs. Below is a summary:
 
-| #   |                           Name | vCPU  | RAM (MB) | Usage                                                                                               |
-| --- | -----------------------------: | :---: | -------: | --------------------------------------------------------------------------------------------------- |
-| 1.  |    idp.east.codemonkey.science |  12   |    2,048 | [Authentik](https://goauthentik.io/) AuthN/AuthZ/SSO                                                |
-| 2.  |    cti.east.codemonkey.science |  12   |   12,288 | [OpenCTI](https://opencti.io/)                                                                      |
-| 3.  |   misp.east.codemonkey.science |  12   |    2,048 | [MISP](https://misp-project.org)                                                                    |
-| 4.  |    sim.east.codemonkey.science |  12   |    2,048 | [Graylog](https://graylog.org/) syslogd and log aggregation                                         |
-| 5.  |   siem.east.codemonkey.science |  12   |    2,048 | [Wazuh](https://wazuh.com/) full-stack SIEM                                                         |
-| 6.  | status.east.codemonkey.science |  12   |    2,048 | [Uptime-Kuma](https://github.com/louislam/uptime-kuma) Uptime monitoring and incident/outage status |
+| #   |                            Name | vCPU | RAM (MB) | Host | Usage                                                                                               |
+| --- | ------------------------------: | :--: | -------: | ---- | --------------------------------------------------------------------------------------------------- |
+| 1.  |     idp.east.codemonkey.science |  12  |    2,048 | pve1 | [Authentik](https://goauthentik.io/) AuthN/AuthZ/SSO                                                |
+| 2.  |     cti.east.codemonkey.science |  12  |   12,288 | pve1 | [OpenCTI](https://opencti.io/)                                                                      |
+| 3.  |    misp.east.codemonkey.science |  12  |    2,048 | pve1 | [MISP](https://misp-project.org)                                                                    |
+| 4.  |     sim.east.codemonkey.science |  12  |    2,048 | pve2 | [Graylog](https://graylog.org/) syslogd and log aggregation                                         |
+| 5.  |    siem.east.codemonkey.science |  12  |    4,096 | pve2 | [Wazuh](https://wazuh.com/) full-stack SIEM                                                         |
+| 6.  |  status.east.codemonkey.science |  12  |    2,048 | pve2 | [Uptime-Kuma](https://github.com/louislam/uptime-kuma) Uptime monitoring and incident/outage status |
+| 7.  |    ntfy.east.codemonkey.science |  12  |    2,048 | pve2 | [ntfy](https://docs.ntfy.sh/install/)                                                               |
+| 8.  | monitor.east.codemonkey.science |  12  |    4,096 | pve1 | [Nagios](https://www.nagios.org/)                                                                   |
 
-> **NOTE:** This will use 22,528 GB of RAM if you do not choose "Ballooning" in ProxMox.
+> **NOTE:** This will use 30,720 MB (30 GB) of RAM if you do not choose "Ballooning" in ProxMox.
 
 There is a VLAN 50 where these machines live, and DNS entries as follows:
 
@@ -45,12 +47,16 @@ There is a VLAN 50 where these machines live, and DNS entries as follows:
 |           *pve2.east.codemonkey.science* |  192.168.60.7 |
 | *github-runner1.east.codemonkey.science* | 192.168.60.10 |
 |    *cloudflared.east.codemonkey.science* | 192.168.60.11 |
+|        *mirror1.east.codemonkey.science* | 192.168.60.21 |
+|        *mirror2.east.codemonkey.science* | 192.168.60.22 |
 |             auth.east.codemonkey.science | 192.168.60.12 |
 |              cti.east.codemonkey.science | 192.168.60.13 |
 |             misp.east.codemonkey.science | 192.168.60.14 |
 |              sim.east.codemonkey.science | 192.168.60.15 |
 |             siem.east.codemonkey.science | 192.168.60.16 |
 |           status.east.codemonkey.science | 192.168.60.17 |
+|             ntfy.east.codemonkey.science | 192.168.60.18 |
+|          monitor.east.codemonkey.science | 192.168.60.19 |
 
 Servers in *italics* will be managed outside of the Terraform process.
 
