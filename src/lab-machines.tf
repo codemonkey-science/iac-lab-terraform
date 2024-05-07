@@ -52,6 +52,7 @@ resource "null_resource" "disk_resize_auth" {
       user        = local.connection_pve1.user
       private_key = local.connection_pve1.private_key
       host        = local.connection_pve1.host
+      timeout = "10s"
     }
   }
 }
@@ -95,6 +96,7 @@ resource "null_resource" "disk_resize_cti" {
       user        = local.connection_pve1.user
       private_key = local.connection_pve1.private_key
       host        = local.connection_pve1.host
+      timeout = "10s"
     }
   }
 }
@@ -137,6 +139,7 @@ resource "null_resource" "disk_resize_misp" {
       user        = local.connection_pve1.user
       private_key = local.connection_pve1.private_key
       host        = local.connection_pve1.host
+      timeout = "10s"
     }
   }
 }
@@ -179,6 +182,7 @@ resource "null_resource" "disk_resize_monitor" {
       user        = local.connection_pve1.user
       private_key = local.connection_pve1.private_key
       host        = local.connection_pve1.host
+      timeout = "10s"
     }
   }
 }
@@ -220,6 +224,7 @@ resource "null_resource" "disk_resize_sim" {
       user        = local.connection_pve2.user
       private_key = local.connection_pve2.private_key
       host        = local.connection_pve2.host
+      timeout = "10s"
     }
   }
 }
@@ -259,6 +264,7 @@ resource "proxmox_vm_qemu" "siem" {
       user        = local.connection_pve2.user
       private_key = local.connection_pve2.private_key
       host        = local.connection_pve2.host
+      timeout = "10s"
     }
   }
 }
@@ -275,6 +281,7 @@ resource "null_resource" "disk_resize_siem" {
       user        = local.connection_pve2.user
       private_key = local.connection_pve2.private_key
       host        = local.connection_pve2.host
+      timeout = "10s"
     }
   }
 }
@@ -317,6 +324,7 @@ resource "null_resource" "disk_resize_status" {
       user        = local.connection_pve2.user
       private_key = local.connection_pve2.private_key
       host        = local.connection_pve2.host
+      timeout = "10s"
     }
   }
 }
@@ -359,6 +367,7 @@ resource "null_resource" "disk_resize_ntfy" {
       user        = local.connection_pve2.user
       private_key = local.connection_pve2.private_key
       host        = local.connection_pve2.host
+      timeout = "10s"
     }
   }
 }
