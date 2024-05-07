@@ -29,7 +29,7 @@ resource "proxmox_vm_qemu" "auth" {
   balloon      = 2048
   memory       = 8196
   cpu          = "host"
-  cores        = 2
+  cores        = 6
   sockets      = 1
   onboot       = true
   tablet       = false
@@ -73,7 +73,7 @@ resource "proxmox_vm_qemu" "cti" {
   balloon      = 2048
   memory       = 4096
   cpu          = "host"
-  cores        = 4
+  cores        = 6
   sockets      = 1
   onboot       = true
   tablet       = false
@@ -115,7 +115,7 @@ resource "proxmox_vm_qemu" "misp" {
   balloon      = 2048
   memory       = 4096
   cpu          = "host"
-  cores        = 4
+  cores        = 6
   sockets      = 1
   onboot       = true
   tablet       = false
@@ -157,7 +157,7 @@ resource "proxmox_vm_qemu" "monitor" {
   balloon      = 2048
   memory       = 4096
   cpu          = "host"
-  cores        = 4
+  cores        = 6
   sockets      = 1
   onboot       = true
   tablet       = false
@@ -198,7 +198,7 @@ resource "proxmox_vm_qemu" "sim" {
   balloon      = 2048
   memory       = 4096
   cpu          = "host"
-  cores        = 4
+  cores        = 6
   sockets      = 1
   onboot       = true
   tablet       = false
@@ -240,7 +240,7 @@ resource "proxmox_vm_qemu" "siem" {
   balloon      = 2048
   memory       = 8192
   cpu          = "host"
-  cores        = 4
+  cores        = 6
   sockets      = 1
   onboot       = true
   tablet       = false
@@ -295,7 +295,7 @@ resource "proxmox_vm_qemu" "status" {
   balloon      = 2048
   memory       = 4096
   cpu          = "host"
-  cores        = 4
+  cores        = 6
   sockets      = 1
   onboot       = true
   tablet       = false
@@ -337,7 +337,7 @@ resource "proxmox_vm_qemu" "ntfy" {
   balloon      = 2048
   memory       = 4096
   cpu          = "host"
-  cores        = 4
+  cores        = 6
   sockets      = 1
   onboot       = true
   tablet       = false
